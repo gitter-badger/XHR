@@ -1,4 +1,4 @@
-#XHR
+#XHR ECMA-6 Promise-based library
 
  Lightweight, ECMA-6 Promise-based XHR library supporting XHR v. 2. 
  
