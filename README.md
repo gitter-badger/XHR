@@ -4,9 +4,13 @@
  
  It can be used as a stand-alone or as a part of the hAzzleJS library
  
- #API
+ All responses are sent back as **raw data** meaning it is not handling **jsonP** or converting **XML** or other 
+ things. For this it need to be developed a **AJAX framework** dealing with this things on top of the **XHR skeleton**.
  
- The API following the ECMA-6 Promise standards.
+ API
+ ========
+ 
+ The API following the **ECMA-6 Promise** standards.
  
  ```javascript
  
