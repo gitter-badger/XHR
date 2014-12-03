@@ -1,18 +1,22 @@
 // xhr.js
 var _xhr = (function() {
 
-    var ahAzzle = !!window.hAzzle && typeof window.hAzzle === 'function',
+    // Check for hAzzle namespace
+
+    var ishAzzle = !!window.hAzzle && typeof window.hAzzle === 'function',
 
         // Promise library
 
-        Promise = window.Promise;
+        Promise = window.Promise,
 
-    // Modules
-    if (ahAzzle) {
+        hA = ishAzzle ? hAzzle : null;
 
-        var util = hAzzle.require('util'),
-            types = hAzzle.require('types'),
-            features = hAzzle.require('has');
+    // Included some Core modules if hAzzle are present
+
+    if (ishAzzle) {
+
+        var util = hA.require('util'),
+            types = hA.require('types');
     }
 
     // ECMA-6 polyfill needed, check for that
@@ -21,10 +25,9 @@ var _xhr = (function() {
             'Promises: You need to include hAzzle ECMA-6 Promise shim or another shim to get this working.');
     }
 
-
     return function() {
 
-        // XHR
+        // XHR main function
 
         function XHR(method, url, config) {
 
@@ -34,8 +37,8 @@ var _xhr = (function() {
             var headers = config.headers || {},
                 charset = 'charset' in config ? config.charset : XHR.defaults.charset,
                 cacheBurst = 'cacheBurst' in config ? config.cacheBurst : XHR.defaults.cacheBurst,
-                withCredentials = config.withCredentials ? config.withCredentials : XHR.defaults.withCredentials;
-            data = config.data;
+                withCredentials = config.withCredentials ? config.withCredentials : XHR.defaults.withCredentials,
+                data = config.data;
 
             if (typeof data === 'object') {
                 data = util.reduce(Object.keys(data), function(memo, key) {
@@ -126,6 +129,10 @@ var _xhr = (function() {
 
                 xhr.timeout = config.timeout || XHR.defaults.timeout;
 
+                xhr.ontimeout = function() {
+                    reject(new Error('timeout'));
+                };
+
                 // Set default headers
                 Object.keys(XHR.defaults.headers).forEach(function(key) {
                     if (!(key in headers)) {
@@ -143,11 +150,7 @@ var _xhr = (function() {
                 }
                 xhr.send(data || null);
             });
-
-            xhr.ontimeout = function() {
-                reject(new Error('timeout'));
-            };
-        };
+        }
 
         XHR.get = function(url, config) {
             return XHR('get', url, config);
@@ -172,9 +175,9 @@ var _xhr = (function() {
         // Expose to the window object
 
         window.XHR = XHR;
-    }
+    };
 }());
 
 // Load as hAzzle module if hAzzle ae present,else as a stand-alone method
 
-!!window.hAzzle && typeof window.hAzzle === 'function' ? hAzzle.define('xhr', _xhr) : _xhr()
+!!window.hAzzle && typeof window.hAzzle === 'function' ? hAzzle.define('xhr', _xhr) : _xhr();
