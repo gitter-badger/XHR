@@ -1,4 +1,5 @@
 #XHR ECMA-6 Promise-based library
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/hazzlejs/XHR?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
  Lightweight, ECMA-6 Promise-based XHR library supporting XHR v. 2. 
  
