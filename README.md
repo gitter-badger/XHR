@@ -7,8 +7,7 @@
  All responses are sent back as **raw data** meaning it is not handling **jsonP** or converting **XML** or other 
  things. For this it need to be developed a **AJAX framework** dealing with this things on top of the **XHR skeleton**.
  
- API
- ========
+#API
  
  The API following the **ECMA-6 Promise** standards.
  
